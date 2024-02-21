@@ -1,11 +1,63 @@
 import { Modal, Button, Form } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import "./App.css";
 
 function About() {
   const [showModal, setShowModal] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showFailure, setShowFailure] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = formRef.current;
+    if (form) {
+      const fromName = form.elements.namedItem("from_name") as HTMLInputElement;
+      const contact = form.elements.namedItem("contact") as HTMLInputElement;
+      const fromEmail = form.elements.namedItem(
+        "from_email"
+      ) as HTMLInputElement;
+      const message = form.elements.namedItem("message") as HTMLInputElement;
+
+      if (
+        !fromName.value ||
+        !contact.value ||
+        !fromEmail.value ||
+        !message.value
+      ) {
+        setShowFailure(true);
+        setTimeout(() => {
+          setShowFailure(false);
+        }, 5000);
+        return;
+      }
+      emailjs
+        .sendForm("service_jnxwc1w", "template_m3a51bl", form, {
+          publicKey: "pSlZLc_xtCj6Cpjnn",
+        })
+        .then(
+          () => {
+            console.log("SUCCESS!");
+            setShowSuccess(true);
+            setTimeout(() => {
+              setShowSuccess(false);
+              form.reset();
+            }, 5000);
+          },
+          (error) => {
+            console.log("FAILED...", error.text);
+            setShowFailure(true);
+            setTimeout(() => {
+              setShowFailure(false);
+              form.reset();
+            }, 5000);
+          }
+        );
+    }
+  };
   const handleModal = () => {
     setShowModal(!showModal);
   };
@@ -27,6 +79,12 @@ function About() {
   }, []);
 
   const containerClass = `container-fluid py-5 ${isVisible ? "fadeIn" : ""}`;
+
+  const handleDownloadCV = () => {
+    const cvUrl =
+      "https://drive.google.com/file/d/1GlQ1a2_KdEtZ5gO3nAeB_wOfHEsD4OjZ/view?usp=sharing";
+    window.open(cvUrl, "_blank");
+  };
 
   return (
     <div className={containerClass} id="about">
@@ -51,22 +109,22 @@ function About() {
             />
           </div>
           <div className="col-lg-7">
-            <h2 className="mb-4">UI/UX Designer & Web Developer</h2>
+            <h2 className="mb-4">Personal Portfolio</h2>
             <p>
-              Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit
-              amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd
-              sed ea lorem diam ea lorem eirmod duo sit ipsum. Amet dolor stet
-              lorem diam dolor justo et dolor dolor dolor
+              As a young and motivated individual. Eager to bring my fresh
+              perspective and learning techniques to solve real-world problems
+              in IT filed.
             </p>
             <div className="row mb-3">
               <div className="col-sm-7 py-3">
                 <h5>
-                  Name: <span className="text-secondary">The Wolverine</span>
+                  Name:{" "}
+                  <span className="text-secondary">Shankaran Giritharan</span>
                 </h5>
               </div>
               <div className="col-sm-7 py-3">
                 <h5>
-                  Birthday: <span className="text-secondary">1 JAN 2000</span>
+                  Birthday: <span className="text-secondary">10 NOV 2000</span>
                 </h5>
               </div>
               <div className="col-sm-7 py-3">
@@ -76,31 +134,26 @@ function About() {
               </div>
               <div className="col-sm-7 py-3">
                 <h5>
-                  Experience: <span className="text-secondary">10 Years</span>
+                  Experience: <span className="text-secondary">Fresher</span>
                 </h5>
               </div>
               <div className="col-sm-7 py-3">
                 <h5>
-                  Phone: <span className="text-secondary">+012 345 6789</span>
+                  Phone: <span className="text-secondary">+94776103561</span>
                 </h5>
               </div>
               <div className="col-sm-7 py-3">
                 <h5>
                   Email:{" "}
-                  <span className="text-secondary">killer@example.com</span>
-                </h5>
-              </div>
-              <div className="col-sm-7 py-3">
-                <h5>
-                  Address:{" "}
                   <span className="text-secondary">
-                    123 Street, Colombo, SriLanka
+                    skshankaran4@example.com
                   </span>
                 </h5>
               </div>
               <div className="col-sm-7 py-3">
                 <h5>
-                  Freelance: <span className="text-secondary">Available</span>
+                  Address:{" "}
+                  <span className="text-secondary">Colombo, Sri Lanka</span>
                 </h5>
               </div>
             </div>
@@ -111,8 +164,12 @@ function About() {
             >
               Hire Me
             </button>
-            <a href="" className="btn btn-outline-primary">
-              Learn More
+            <a
+              href="#"
+              className="btn btn-outline-primary"
+              onClick={handleDownloadCV}
+            >
+              Get CV
             </a>
           </div>
         </div>
@@ -126,7 +183,7 @@ function About() {
         </Modal.Header>
         <Modal.Body style={{ backgroundColor: "#f2f2f2" }}>
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-5">
               <img
                 src="./src/assets/hire.jpg"
                 alt="Your Photo"
@@ -135,35 +192,38 @@ function About() {
             </div>
 
             <div className="col-lg-6">
-              <Form>
-                <Form.Group controlId="fullName">
+              <Form ref={formRef} onSubmit={sendEmail}>
+                <Form.Group controlId="from_name">
                   <Form.Label>Full Name</Form.Label>
                   <Form.Control
                     type="text"
+                    name="from_name"
                     placeholder="Enter your full name"
                   />
                 </Form.Group>
-
-                <Form.Group controlId="contactNumber">
+                <Form.Group controlId="contact">
                   <Form.Label>Contact Number</Form.Label>
                   <Form.Control
-                    type="tel"
-                    placeholder="Enter your contact number"
+                    type="text"
+                    name="contact"
+                    placeholder="Enter your Contact Number"
                   />
                 </Form.Group>
 
-                <Form.Group controlId="email">
+                <Form.Group controlId="from_email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
+                    name="from_email"
                     placeholder="Enter your email address"
                   />
                 </Form.Group>
 
-                <Form.Group controlId="additionalInfo">
+                <Form.Group controlId="message">
                   <Form.Label>Additional Information</Form.Label>
                   <Form.Control
                     as="textarea"
+                    name="message"
                     rows={4}
                     placeholder="Provide additional information about your project"
                   />
@@ -179,6 +239,22 @@ function About() {
           </div>
         </Modal.Body>
       </Modal>
+      {showSuccess && (
+        <div className="success-message">
+          <p>Email sent successfully!</p>
+          <div className="progress-bar">
+            <div className="progress-bar-fill"></div>
+          </div>
+        </div>
+      )}
+      {showFailure && (
+        <div className="failure-message">
+          <p>Failed to send email. Please try again later.</p>
+          <div className="progress-bar">
+            <div className="progress-bar-fill"></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

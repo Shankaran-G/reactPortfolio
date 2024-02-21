@@ -39,3 +39,48 @@
 .fadeIn {
   animation: fadeIn 1s ease-in-out;
 }
+.success-message {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #28a745;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 5px;
+  z-index: 9999;
+}
+.failure-message {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #a72828;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 5px;
+  z-index: 9999;
+}
+
+.progress-bar {
+  background-color: #fff;
+  height: 5px;
+  border-radius: 3px;
+  margin-top: 5px;
+}
+
+.progress-bar-fill {
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  animation: progress 5s linear;
+}
+
+@keyframes progress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}

@@ -4,9 +4,41 @@ import { Modal, Button, Form } from "react-bootstrap";
 
 function Message() {
   const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    contactNumber: "",
+    email: "",
+    additionalInfo: "",
+  });
 
   const handleModal = () => {
     setShowModal(!showModal);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleSendEmail = () => {
+    fetch("/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Email sent successfully");
+        } else {
+          alert("Failed to send email");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Failed to send email");
+      });
   };
 
   return (
@@ -89,7 +121,7 @@ function Message() {
         </Modal.Header>
         <Modal.Body style={{ backgroundColor: "#f2f2f2" }}>
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-5">
               <img
                 src="./src/assets/hire.jpg"
                 alt="Your Photo"
@@ -104,6 +136,7 @@ function Message() {
                   <Form.Control
                     type="text"
                     placeholder="Enter your full name"
+                    onChange={handleChange}
                   />
                 </Form.Group>
 
@@ -112,6 +145,7 @@ function Message() {
                   <Form.Control
                     type="tel"
                     placeholder="Enter your contact number"
+                    onChange={handleChange}
                   />
                 </Form.Group>
 
@@ -120,6 +154,7 @@ function Message() {
                   <Form.Control
                     type="email"
                     placeholder="Enter your email address"
+                    onChange={handleChange}
                   />
                 </Form.Group>
 
@@ -129,11 +164,16 @@ function Message() {
                     as="textarea"
                     rows={4}
                     placeholder="Provide additional information about your project"
+                    onChange={handleChange}
                   />
                 </Form.Group>
                 <div className="mb-3"></div>
                 <div className="d-flex justify-content-center">
-                  <Button variant="primary" type="submit">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    onClick={handleSendEmail}
+                  >
                     Send
                   </Button>
                 </div>

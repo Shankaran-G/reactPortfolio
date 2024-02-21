@@ -17,8 +17,15 @@ export const Image = ({ src, heading, alt, text }: ImageProps) => {
 
       <div className="carousel-inner rounded-5 shadow-4-strong">
         <div className="carousel-item active">
-          <img src={src} className="d-block w-100" alt={alt} />
-          <div className="carousel-caption d-none d-md-block">
+          <img
+            src={src}
+            className="d-block w-100"
+            alt={alt}
+            width="1920"
+            height="1080"
+            style={{ objectFit: "cover" }}
+          />
+          <div className="carousel-caption d-none d-md-block text-dark">
             <h5>{heading}</h5>
             <p>{text}</p>
           </div>

@@ -3,7 +3,7 @@ import Image from "./Image";
 import About from "./About";
 import { Service } from "./Service";
 import Blog from "./Blog";
-import Contact from "./Contact";
+
 import Footer from "./Footer";
 
 function App() {
@@ -27,13 +27,13 @@ function App() {
       <Image
         src="./src/assets/homeimage.jpg"
         alt="BackgroundImage"
-        heading="The Wolverine"
-        text="Killer"
+        heading="Shankaran Giritharan"
+        text=""
       />
       <About />
       <Service services={servicesData} />
       <Blog />
-      <Contact />
+
       <Footer />
     </div>
   );
