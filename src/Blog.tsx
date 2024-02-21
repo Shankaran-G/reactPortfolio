@@ -1,9 +1,9 @@
 const Blog = () => {
   const portfolioData = [
-    { category: "first", image: "src/assets/web1.png" },
-    { category: "first", image: "src/assets/web2.png" },
-    { category: "first", image: "src/assets/myra1.jpg" },
-    { category: "first", image: "src/assets/myra2.jpg" },
+    { category: "first", image: "src/images/web1.png" },
+    { category: "first", image: "src/images/web2.png" },
+    { category: "first", image: "src/images/myra1.jpg" },
+    { category: "first", image: "src/images/myra2.jpg" },
   ];
 
   return (

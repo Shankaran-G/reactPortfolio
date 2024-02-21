@@ -102,7 +102,7 @@ function About() {
           <div className="col-lg-5 pb-4 pb-lg-0">
             <img
               className="img-fluid rounded w-100"
-              src="./src/assets/sj.jpg"
+              src="./src/images/sj.jpg"
               alt=""
             />
           </div>
@@ -182,7 +182,7 @@ function About() {
           <div className="row">
             <div className="col-lg-5">
               <img
-                src="./src/assets/hire.jpg"
+                src="./src/images/hire.jpg"
                 alt="Your Photo"
                 className="img-fluid rounded-circle"
               />

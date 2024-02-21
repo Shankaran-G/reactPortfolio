@@ -147,7 +147,7 @@ function Message() {
           <div className="row">
             <div className="col-lg-5">
               <img
-                src="./src/assets/hire.jpg"
+                src="./src/images/hire.jpg"
                 alt="Your Photo"
                 className="img-fluid rounded-circle"
               />
