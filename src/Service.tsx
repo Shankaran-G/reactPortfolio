@@ -7,7 +7,7 @@ interface ServiceProps {
 export const Service: React.FC<ServiceProps> = ({ services }) => {
   return (
     <section id="services">
-      <div className="container-fluid py-5">
+      <div className="container-fluid page-content dark py-5">
         <div className="position-relative d-flex align-items-center justify-content-center">
           <h1
             className="display-1 text-uppercase text-white"

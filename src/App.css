@@ -18,6 +18,22 @@
 .nav-item.active {
   position: relative;
 }
+.navbar-dark {
+  background-color: #343a40;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.navbar-dark .navbar-toggler-icon {
+  background-color: #fff;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #fff;
+}
+
 .contact-section {
   opacity: 0;
   transition: opacity 1s ease-in-out;
@@ -48,7 +64,7 @@
   color: #fff;
   padding: 20px 30px;
   border-radius: 5px;
-  z-index: 9999;
+  z-index: 10000;
 }
 .failure-message {
   position: fixed;
@@ -59,7 +75,7 @@
   color: #fff;
   padding: 20px 30px;
   border-radius: 5px;
-  z-index: 9999;
+  z-index: 10000;
 }
 
 .progress-bar {
@@ -83,4 +99,31 @@
   100% {
     width: 0%;
   }
+}
+.page-content.dark {
+  background-color: #343a40;
+  color: #fff;
+}
+.page-content.dark .success-message,
+.page-content.dark .failure-message {
+  color: #fff;
+}
+
+.page-content.dark .progress-bar,
+.page-content.dark .progress-bar-fill {
+  background-color: #dc3545;
+}
+
+.page-content.dark .progress-bar-fill {
+  background-color: #28a745;
+}
+html {
+  scroll-behavior: smooth;
+}
+.section {
+  padding-top: 80px;
+}
+.portfolio-image {
+  width: 100%;
+  height: auto;
 }

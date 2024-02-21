@@ -6,8 +6,9 @@ function Footer() {
           <a
             className="btn btn-primary btn-floating m-1"
             style={{ backgroundColor: "#3b5998" }}
-            href="#!"
+            href="https://www.facebook.com/profile.php?id=100092372490244&mibextid=ZbWKwL"
             role="button"
+            target="_blank"
           >
             <i className="fab fa-facebook-f"></i>
           </a>
@@ -15,8 +16,9 @@ function Footer() {
           <a
             className="btn btn-primary btn-floating m-1"
             style={{ backgroundColor: "#ac2bac" }}
-            href="#!"
+            href="https://www.instagram.com/imshankaran?igsh=MTluNTZlbGZlaXB4Mg=="
             role="button"
+            target="_blank"
           >
             <i className="fab fa-instagram"></i>
           </a>
@@ -24,8 +26,9 @@ function Footer() {
           <a
             className="btn btn-primary btn-floating m-1"
             style={{ backgroundColor: "#0082ca" }}
-            href="#!"
+            href="https://www.linkedin.com/in/shankaran-giritharan-31029a273"
             role="button"
+            target="_blank"
           >
             <i className="fab fa-linkedin-in"></i>
           </a>
@@ -33,27 +36,13 @@ function Footer() {
           <a
             className="btn btn-primary btn-floating m-1"
             style={{ backgroundColor: "#333333" }}
-            href="#!"
+            href="https://github.com/Shankaran-G"
             role="button"
+            target="_blank"
           >
             <i className="fab fa-github"></i>
           </a>
         </section>
-      </div>
-
-      <div
-        className="text-center p-3"
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-      >
-        © 2024 Copyright:
-        <a
-          className="text-white"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Killer.com
-        </a>
       </div>
     </footer>
   );

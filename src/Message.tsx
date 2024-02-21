@@ -1,63 +1,95 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-scroll";
 import { Modal, Button, Form } from "react-bootstrap";
+import emailjs from "@emailjs/browser";
+import "./App.css";
 
 function Message() {
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    contactNumber: "",
-    email: "",
-    additionalInfo: "",
-  });
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showFailure, setShowFailure] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = formRef.current;
+    if (form) {
+      const fromName = form.elements.namedItem("from_name") as HTMLInputElement;
+      const contact = form.elements.namedItem("contact") as HTMLInputElement;
+      const fromEmail = form.elements.namedItem(
+        "from_email"
+      ) as HTMLInputElement;
+      const message = form.elements.namedItem("message") as HTMLInputElement;
+
+      if (
+        !fromName.value ||
+        !contact.value ||
+        !fromEmail.value ||
+        !message.value
+      ) {
+        setShowFailure(true);
+        setTimeout(() => {
+          setShowFailure(false);
+        }, 5000);
+        return;
+      }
+      emailjs
+        .sendForm("service_jnxwc1w", "template_m3a51bl", form, {
+          publicKey: "pSlZLc_xtCj6Cpjnn",
+        })
+        .then(
+          () => {
+            console.log("SUCCESS!");
+            setShowSuccess(true);
+            setTimeout(() => {
+              setShowSuccess(false);
+              form.reset();
+            }, 5000);
+          },
+          (error) => {
+            console.log("FAILED...", error.text);
+            setShowFailure(true);
+            setTimeout(() => {
+              setShowFailure(false);
+              form.reset();
+            }, 5000);
+          }
+        );
+    }
+  };
   const handleModal = () => {
     setShowModal(!showModal);
   };
+  const [showNav, setShowNav] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
-  };
-
-  const handleSendEmail = () => {
-    fetch("/send-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          alert("Email sent successfully");
-        } else {
-          alert("Failed to send email");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("Failed to send email");
-      });
+  const toggleNav = () => {
+    setShowNav(!showNav);
   };
 
   return (
-    <nav className="navbar fixed-top shadow-sm navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
+    <nav className="navbar navbar-dark fixed-top shadow-sm navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
       <a href="index.html" className="navbar-brand ml-lg-3">
         <h1 className="m-0 display-5">
           <span className="text-primary">My</span>Portfolio
         </h1>
       </a>
-      <button
-        type="button"
+      <Button
+        onClick={toggleNav}
         className="navbar-toggler"
-        data-toggle="collapse"
-        data-target="#navbarCollapse"
+        type="button"
+        aria-controls="navbarCollapse"
+        aria-expanded={showNav ? "true" : "false"}
+        aria-label="Toggle navigation"
       >
+        {" "}
         <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse  navbar-collapse px-lg-3" id="navbarCollapse">
-        <div className="navbar-nav  ms-auto py-0  ">
+      </Button>
+      <div
+        className={`collapse navbar-collapse ${showNav ? "show" : ""}`}
+        id="navbarCollapse"
+      >
+        <div className="navbar-nav ms-auto py-0">
           <Link
             to="home"
             smooth={true}
@@ -94,20 +126,12 @@ function Message() {
           >
             Blog
           </Link>
-          <Link
-            to="contact"
-            smooth={true}
-            duration={500}
-            className="nav-item nav-link"
-            style={{ cursor: "pointer" }}
-          >
-            Contact
-          </Link>
         </div>
         <Button
           variant="outline-primary"
           className="d-none d-lg-block"
           onClick={handleModal}
+          style={{ color: "white" }}
         >
           Hire Me
         </Button>
@@ -130,50 +154,46 @@ function Message() {
             </div>
 
             <div className="col-lg-6">
-              <Form>
-                <Form.Group controlId="fullName">
+              <Form ref={formRef} onSubmit={sendEmail}>
+                <Form.Group controlId="from_name">
                   <Form.Label>Full Name</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter your full name"
-                    onChange={handleChange}
+                    name="from_name"
                   />
                 </Form.Group>
 
-                <Form.Group controlId="contactNumber">
+                <Form.Group controlId="contact">
                   <Form.Label>Contact Number</Form.Label>
                   <Form.Control
                     type="tel"
                     placeholder="Enter your contact number"
-                    onChange={handleChange}
+                    name="contact"
                   />
                 </Form.Group>
 
-                <Form.Group controlId="email">
+                <Form.Group controlId="from_email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Enter your email address"
-                    onChange={handleChange}
+                    name="from_email"
                   />
                 </Form.Group>
 
-                <Form.Group controlId="additionalInfo">
+                <Form.Group controlId="message">
                   <Form.Label>Additional Information</Form.Label>
                   <Form.Control
                     as="textarea"
+                    name="message"
                     rows={4}
                     placeholder="Provide additional information about your project"
-                    onChange={handleChange}
                   />
                 </Form.Group>
                 <div className="mb-3"></div>
                 <div className="d-flex justify-content-center">
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    onClick={handleSendEmail}
-                  >
+                  <Button variant="primary" type="submit">
                     Send
                   </Button>
                 </div>
@@ -182,6 +202,22 @@ function Message() {
           </div>
         </Modal.Body>
       </Modal>
+      {showSuccess && (
+        <div className="success-message">
+          <p>Email sent successfully!</p>
+          <div className="progress-bar">
+            <div className="progress-bar-fill"></div>
+          </div>
+        </div>
+      )}
+      {showFailure && (
+        <div className="failure-message">
+          <p>Failed to send email. Please try again later.</p>
+          <div className="progress-bar">
+            <div className="progress-bar-fill"></div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

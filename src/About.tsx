@@ -87,7 +87,7 @@ function About() {
   };
 
   return (
-    <div className={containerClass} id="about">
+    <div className={`page-content ${isVisible ? "dark" : ""}`} id="about">
       <div className="container">
         <div className="position-relative d-flex align-items-center justify-content-center">
           <h1
@@ -145,9 +145,7 @@ function About() {
               <div className="col-sm-7 py-3">
                 <h5>
                   Email:{" "}
-                  <span className="text-secondary">
-                    skshankaran4@example.com
-                  </span>
+                  <span className="text-secondary">skshankaran4@gmail.com</span>
                 </h5>
               </div>
               <div className="col-sm-7 py-3">
@@ -158,7 +156,7 @@ function About() {
               </div>
             </div>
             <button
-              style={{ marginRight: "50px" }}
+              style={{ marginRight: "50px", color: "white" }}
               className="btn btn-outline-primary"
               onClick={handleModal}
             >
@@ -168,6 +166,7 @@ function About() {
               href="#"
               className="btn btn-outline-primary"
               onClick={handleDownloadCV}
+              style={{ color: "white" }}
             >
               Get CV
             </a>

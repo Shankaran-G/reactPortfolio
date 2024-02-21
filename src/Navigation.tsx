@@ -14,15 +14,12 @@ function Navigation() {
   };
 
   useEffect(() => {
-    Events.scrollEvent.register("begin", (to, element) => {
-      // You can handle scroll beginning if needed
-    });
+    Events.scrollEvent.register("begin", (to, element) => {});
 
     Events.scrollEvent.register("end", (to, element) => {
       setActiveLink(to);
     });
 
-    // Cleanup the event listeners when the component is unmounted
     return () => {
       Events.scrollEvent.remove("begin");
       Events.scrollEvent.remove("end");
@@ -46,76 +43,72 @@ function Navigation() {
       </button>
       <div className="collapse navbar-collapse px-lg-3" id="navbarCollapse">
         <div className="navbar-nav ms-auto py-0">
-          <Link
-            activeClass="active"
-            to="home"
-            spy={true}
-            smooth={true}
-            duration={500}
-            className={`nav-item nav-link ${
-              activeLink === "home" ? "active" : ""
-            }`}
-            style={{ cursor: "pointer" }}
-            onSetActive={() => handleSetActive("home")}
-          >
-            Home
-          </Link>
-          <Link
-            activeClass="active"
-            to="about"
-            spy={true}
-            smooth={true}
-            duration={500}
-            className={`nav-item nav-link ${
-              activeLink === "about" ? "active" : ""
-            }`}
-            style={{ cursor: "pointer" }}
-            onSetActive={() => handleSetActive("about")}
-          >
-            About
-          </Link>
-          <Link
-            activeClass="active"
-            to="services"
-            spy={true}
-            smooth={true}
-            duration={500}
-            className={`nav-item nav-link ${
-              activeLink === "services" ? "active" : ""
-            }`}
-            style={{ cursor: "pointer" }}
-            onSetActive={() => handleSetActive("services")}
-          >
-            Service
-          </Link>
-          <Link
-            activeClass="active"
-            to="portfolio"
-            spy={true}
-            smooth={true}
-            duration={500}
-            className={`nav-item nav-link ${
-              activeLink === "portfolio" ? "active" : ""
-            }`}
-            style={{ cursor: "pointer" }}
-            onSetActive={() => handleSetActive("portfolio")}
-          >
-            Blog
-          </Link>
-          <Link
-            activeClass="active"
-            to="contact"
-            spy={true}
-            smooth={true}
-            duration={500}
-            className={`nav-item nav-link ${
-              activeLink === "contact" ? "active" : ""
-            }`}
-            style={{ cursor: "pointer" }}
-            onSetActive={() => handleSetActive("contact")}
-          >
-            Contact
-          </Link>
+          <div className="section" id="home">
+            <Link
+              activeClass="active"
+              to="home"
+              spy={true}
+              smooth={true}
+              duration={300}
+              offset={-80}
+              className={`nav-item nav-link ${
+                activeLink === "home" ? "active" : ""
+              }`}
+              style={{ cursor: "pointer" }}
+              onSetActive={() => handleSetActive("home")}
+            >
+              Home
+            </Link>
+          </div>
+          <div className="section" id="about">
+            <Link
+              activeClass="active"
+              to="about"
+              spy={true}
+              smooth={true}
+              duration={300}
+              offset={-80}
+              className={`nav-item nav-link ${
+                activeLink === "about" ? "active" : ""
+              }`}
+              style={{ cursor: "pointer" }}
+              onSetActive={() => handleSetActive("about")}
+            >
+              About
+            </Link>
+          </div>
+          <div className="section" id="services">
+            <Link
+              activeClass="active"
+              to="services"
+              spy={true}
+              smooth={true}
+              duration={300}
+              className={`nav-item nav-link ${
+                activeLink === "services" ? "active" : ""
+              }`}
+              style={{ cursor: "pointer" }}
+              onSetActive={() => handleSetActive("services")}
+            >
+              Service
+            </Link>
+          </div>
+          <div className="section" id="portfolio">
+            <Link
+              activeClass="active"
+              to="portfolio"
+              spy={true}
+              smooth={true}
+              duration={300}
+              className={`nav-item nav-link ${
+                activeLink === "portfolio" ? "active" : ""
+              }`}
+              style={{ cursor: "pointer" }}
+              onSetActive={() => handleSetActive("portfolio")}
+            >
+              Blog
+            </Link>
+          </div>
         </div>
         <a
           href=""
