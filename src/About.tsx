@@ -78,8 +78,6 @@ function About() {
     };
   }, []);
 
-  const containerClass = `container-fluid py-5 ${isVisible ? "fadeIn" : ""}`;
-
   const handleDownloadCV = () => {
     const cvUrl =
       "https://drive.google.com/file/d/1GlQ1a2_KdEtZ5gO3nAeB_wOfHEsD4OjZ/view?usp=sharing";

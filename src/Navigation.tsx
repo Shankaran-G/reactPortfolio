@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, Events, animateScroll } from "react-scroll";
 import "./App.css";
 
@@ -14,9 +14,9 @@ function Navigation() {
   };
 
   useEffect(() => {
-    Events.scrollEvent.register("begin", (to, element) => {});
+    Events.scrollEvent.register("begin", () => {});
 
-    Events.scrollEvent.register("end", (to, element) => {
+    Events.scrollEvent.register("end", (to) => {
       setActiveLink(to);
     });
 
