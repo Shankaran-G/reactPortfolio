@@ -25,7 +25,7 @@ function App() {
     <div>
       <Message />
       <Image
-        src="./src/images/homeimage.jpg"
+        src="./images/homeimage.jpg"
         alt="BackgroundImage"
         heading="Shankaran Giritharan"
         text=""
